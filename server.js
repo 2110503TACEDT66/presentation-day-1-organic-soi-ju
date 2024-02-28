@@ -33,9 +33,9 @@ app.use(cors());
 
 app.use('/api/v1/massageShops', massageShops);
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
-const server = app.listen(PORT, console.log('Server running in ', process.env.NODE_ENV, ' mode on ' , process.env.PORT));
+const server = app.listen(PORT, console.log('Server running in ', process.env.NODE_ENV, ' mode on ' , PORT));
 
 process.on('unhandledRejection', (err,promise) => {
     console.log(`Error: ${err.message}`);
