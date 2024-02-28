@@ -14,6 +14,7 @@ dotenv.config({path: './config/config.env'});
 connectDB();
 
 const massageShops = require('./routes/massageshops');
+const auth = require('./routes/auth');
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use(cors());
 
 
 app.use('/api/v1/massageShops', massageShops);
+app.use('/api/v1/auth', auth);
 
 const PORT = process.env.PORT || 5000;
 
