@@ -70,13 +70,13 @@ exports.getMassageShops = async (req,res,next) => {
 //@access   Public
 exports.getMassageShop = async (req,res,next) => {
     try{
-        const shops = await MassageShop.findById(req.params.id);
+        const shop = await MassageShop.findById(req.params.id);
 
-        if(!shops){
+        if(!shop){
             res.status(400).json({success: false});
         }
 
-        res.status(200).json({success: true, data: shops});
+        res.status(200).json({success: true, data: shop});
     }catch(err){
         res.status(400).json({success: false})
     }
@@ -87,8 +87,8 @@ exports.getMassageShop = async (req,res,next) => {
 //@route    POST /api/v1/massageShops
 //@access   Private
 exports.createMassageShop = async (req,res,next) => {
-    const shops = await MassageShop.create(req.body);
-    res.status(201).json({success: true, data: shops});
+    const shop = await MassageShop.create(req.body);
+    res.status(201).json({success: true, data: shop});
 };
 
 //@desc     Update all massageshops
@@ -96,16 +96,16 @@ exports.createMassageShop = async (req,res,next) => {
 //@access   Private
 exports.updateMassageShop = async (req,res,next) => {
     try{
-        const shops = await MassageShop.findByIdAndUpdate(req.params.id, req.body, {
+        const shop = await MassageShop.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
             runValidators: true
         });
 
-        if(!shops){
+        if(!shop){
             return res.status(400).json({success: false});
         }
 
-        res.status(200).json({success: true, data: shops});
+        res.status(200).json({success: true, data: shop});
     }catch(err){
         res.status(400).json({success: false});
     }
@@ -116,11 +116,13 @@ exports.updateMassageShop = async (req,res,next) => {
 //@access   Private
 exports.deleteMassageShop = async (req,res,next) => {
     try{
-        const shops = await MassageShop.findByIdAndDelete(req.params.id);
+        const shop = await MassageShop.findById(req.params.id);
 
-        if(!shops){
+        if(!shop){
             return res.status(400).json({success: false});
         }
+
+        await shop.deleteOne(); // triggers the cascading deletion of reservations.
 
         res.status(200).json({success: true, data: {}});
     }catch(err){
