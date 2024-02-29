@@ -15,6 +15,7 @@ connectDB();
 
 const massageShops = require('./routes/massageshops');
 const auth = require('./routes/auth');
+const reservation = require('./routes/reservations');
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use(cors());
 
 app.use('/api/v1/massageShops', massageShops);
 app.use('/api/v1/auth', auth);
+app.use('/api/v1/reservations', reservations);
 
 const PORT = process.env.PORT || 5000;
 
