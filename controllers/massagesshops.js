@@ -1,5 +1,4 @@
 const MassageShop = require('../models/MassageShop');
-const massageShop = require('../models/MassageShop');
 
 //@desc     Get all massageshops
 //@route    GET /api/v1/massageShops
@@ -68,7 +67,7 @@ exports.getMassageShops = async (req,res,next) => {
 //@access   Public
 exports.getMassageShop = async (req,res,next) => {
     try{
-        const shops = await massageShop.findById(req.params.id);
+        const shops = await MassageShop.findById(req.params.id);
 
         if(!shops){
             res.status(400).json({success: false});
@@ -85,7 +84,7 @@ exports.getMassageShop = async (req,res,next) => {
 //@route    POST /api/v1/massageShops
 //@access   Private
 exports.createMassageShop = async (req,res,next) => {
-    const shops = await massageShop.create(req.body);
+    const shops = await MassageShop.create(req.body);
     res.status(201).json({success: true, data: shops});
 };
 
@@ -94,7 +93,7 @@ exports.createMassageShop = async (req,res,next) => {
 //@access   Private
 exports.updateMassageShop = async (req,res,next) => {
     try{
-        const shops = await massageShop.findByIdAndUpdate(req.params.id, req.body, {
+        const shops = await MassageShop.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
             runValidators: true
         });
@@ -114,7 +113,7 @@ exports.updateMassageShop = async (req,res,next) => {
 //@access   Private
 exports.deleteMassageShop = async (req,res,next) => {
     try{
-        const shops = await massageShop.findByIdAndDelete(req.params.id);
+        const shops = await MassageShop.findByIdAndDelete(req.params.id);
 
         if(!shops){
             return res.status(400).json({success: false});
