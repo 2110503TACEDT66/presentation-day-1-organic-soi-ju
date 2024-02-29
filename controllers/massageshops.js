@@ -4,16 +4,19 @@ const MassageShop = require('../models/MassageShop');
 //@route    GET /api/v1/massageShops
 //@access   Public
 exports.getMassageShops = async (req,res,next) => {
-
+    
     // query, select, sort, pagination
     let query;
 
     const reqQuery = {...req.query};
+
     const removeFields = ['select', 'sort', 'page', 'limit'];
+
     removeFields.forEach(param => delete reqQuery[param]);
     console.log(reqQuery);
 
     let queryStr = JSON.stringify(reqQuery);
+    
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
 
     query = MassageShop.find(JSON.parse(queryStr)).populate('reservations');

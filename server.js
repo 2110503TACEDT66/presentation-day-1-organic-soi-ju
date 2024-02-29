@@ -24,12 +24,16 @@ app.use(mongoSanitize());
 app.use(cookieParser());
 app.use(helmet());
 app.use(xss());
+
 const limiter = rateLimit({
     windowsMs: 10 * 60 * 1000,
     max: 100
 });
+
 app.use(limiter);
+
 app.use(hpp());
+
 app.use(cors());
 
 

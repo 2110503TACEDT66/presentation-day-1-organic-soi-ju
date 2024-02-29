@@ -58,4 +58,10 @@ MassageShopSchema.virtual('reservations', {
     justOne: false
 });
 
+MessageShopSchema.pre('deleteOne', async function(next) {
+    console.log(`Reservations being removed from massage shop ${this._id}`);
+    await this.model('Reservation').deleteMany({massage_shop: this._id});
+    next();
+}); 
+
 module.exports = mongoose.model('MassageShop', MassageShopSchema);
