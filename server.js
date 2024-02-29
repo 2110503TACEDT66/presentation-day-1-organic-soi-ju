@@ -15,7 +15,7 @@ connectDB();
 
 const massageShops = require('./routes/massageshops');
 const auth = require('./routes/auth');
-const reservation = require('./routes/reservations');
+const reservations = require('./routes/reservations');
 
 const app = express();
 
