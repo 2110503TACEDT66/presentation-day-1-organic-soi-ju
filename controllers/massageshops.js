@@ -70,7 +70,7 @@ exports.getMassageShops = async (req,res,next) => {
 //@access   Public
 exports.getMassageShop = async (req,res,next) => {
     try{
-        const shop = await MassageShop.findById(req.params.id);
+        const shop = await MassageShop.findById(req.params.id).populate('reservations');
 
         if(!shop){
             res.status(400).json({success: false});
