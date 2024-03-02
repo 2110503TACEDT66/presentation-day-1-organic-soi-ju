@@ -28,7 +28,7 @@ exports.getReservations = async (req, res, next) => {
 
     try {
         const reservations = await query;
-        res.status(200).json({success: true, count: reservations.count, data: reservations});
+        res.status(200).json({success: true, count: reservations.length, data: reservations});
     } catch (err) {
         console.log(err);
         res.status(500).json({success: false, message: 'Something went wrong'});
