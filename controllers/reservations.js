@@ -68,7 +68,7 @@ exports.addReservation = async (req, res, next) => {
             return res.status(400).json({success: false, message: `User with id: ${req.user.id} has already made 3 reservations`});
         }
         if(!massageShop) {
-            return res.status(400).json({success: false, message: `Massage Shop with id: ${req.params.massageshopId} is not found`});
+            return res.status(404).json({success: false, message: `Massage Shop with id: ${req.params.massageshopId} is not found`});
         }
 
         const reservation = await Reservation.create(req.body);
