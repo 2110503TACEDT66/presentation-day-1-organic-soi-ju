@@ -38,6 +38,16 @@ const UserSchema = new mongoose.Schema({
         default: Date.now
     }
 
+}, {
+    toJSON: {virtuals: true},
+    toObject: {virtuals: true}
+});
+
+UserSchema.virtual('reservations', {
+    ref: 'Reservation',
+    localField: '_id',
+    foreignField: 'user',
+    justOne: false
 });
 
 UserSchema.pre('save', async function(next) {

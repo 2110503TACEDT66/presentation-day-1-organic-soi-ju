@@ -99,3 +99,18 @@ exports.getMe = async (req, res, next) => {
     const user = await User.findById(req.user.id);
     res.status(200).json({success: true, data: user});
 };
+
+exports.getUsers = async (req, res, next) => {
+    
+    let query;
+    query = User.find().populate('reservations');
+    try {
+        const users = await query;
+        res.status(200).json({success: true, count: users.length, data: users});
+    } catch (err) {
+        console.log(err);
+        res.status(400).json({success: false});
+    }
+    
+
+};
