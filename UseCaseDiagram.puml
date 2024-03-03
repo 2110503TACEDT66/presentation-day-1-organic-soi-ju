@@ -1,6 +1,6 @@
 @startuml Massage Reservation Use Case Diagram
 left to right direction
-actor "User" as user
+actor "Registered User" as registeredUser
 rectangle "Massage Reservation" as MassageSystem {
     usecase "Register/Login" as registerlogin
     usecase "View\nMassage Shops" as viewMassageShop
@@ -10,14 +10,20 @@ rectangle "Massage Reservation" as MassageSystem {
     usecase "View Own\nReservations" as viewOwnReservation
     usecase "View All\nReservations" as viewAllReservation
 }
-
 viewAllReservation .> viewOwnReservation : <<include>>
 manageAllReservation .> manageOwnReservation : <<include>>
 
-user -- registerlogin
-user -- viewMassageShop
-user -- manageOwnReservation
-user -- viewOwnReservation
+registeredUser -- registerlogin
+registeredUser -- viewMassageShop
+registeredUser -- manageOwnReservation
+registeredUser -- viewOwnReservation
+
+actor "Non-Registered User" as nonregistered
+nonregistered -- registerlogin
+nonregistered -- viewMassageShop
+
+User <|-- registeredUser
+User <|-- nonregistered
 
 actor "Admin" as admin
 registerlogin -- admin
