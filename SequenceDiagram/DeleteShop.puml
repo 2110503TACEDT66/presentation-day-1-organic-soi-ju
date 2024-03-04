@@ -15,7 +15,7 @@ database "<<MongoDB>>\n:massageshops" as MassageShopsDatabase
 client->server ++:req.delete('/massageShops/:id')
 server->routerMassageShops ++:app.use('/massageShops', massageShops)
 routerMassageShops->middlewareAuth ++:protect()
-routerMassageShops -> middlewareAuth : autorize('admin')
+routerMassageShops -> middlewareAuth : authorize('admin')
 middlewareAuth->controllersMassageShops ++:deleteMassageShop()
 controllersMassageShops->modelMassageShop ++:findById(req.params.id) 
 modelMassageShop ->MassageShopsDatabase ++: MassageShopSchema
