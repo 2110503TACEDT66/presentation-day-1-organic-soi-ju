@@ -96,7 +96,9 @@ exports.logout = async (req, res, next) => {
 
 
 exports.getMe = async (req, res, next) => {
-    const user = await User.findById(req.user.id);
+    
+    let query = User.findById(req.user.id).populate('reservations');
+    const user = await query;
     res.status(200).json({success: true, data: user});
 };
 
