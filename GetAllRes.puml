@@ -6,14 +6,23 @@ title "Manage Reservation (GET ALL)"
 
 participant "Client" as client
 participant "<<javaScript>>\n:server" as server
+participant "<<router>>\n:massageShops" as routerMassageShops
 participant "<<router>>\n:reservations" as routerReservations
+participant "<<middleware>>\n:Authentication" as Authentication
 participant "<<controllers>>\n:reservations" as controllersReservations
 participant "<<model>>\n:Reservation" as modelReservation
 database "<<MongoDB>>\n:reservations" as ReservationsDatabase
+alt ReservationRoute
+    client->server ++:req.get('/reservations')
+    server->routerReservations ++:app.use('/reservations', reservations)
 
-client->server ++:req.get('/reservations')
-server->routerReservations ++:app.use('/reservations', reservations)
-routerReservations -> controllersReservations ++:getReservations()
+else Rerouting From MassageShopRoute
+    client -> server --:req.get('/massageShops/:massageshopId/reservations')
+    server->routerMassageShops ++:app.use('/massageShops', massageShops)
+    routerMassageShops -> routerReservations :router.use('/:massageshopId/reservations', reservationRouter)
+end
+routerReservations -> Authentication ++:protect()
+Authentication -> controllersReservations ++:getReservations()
 alt Not Admin
     controllersReservations->modelReservation ++:find({user: req.user.id}).populate({path: 'massage_shop', select: 'name province tel'})
 else Admin
