@@ -15,12 +15,14 @@ database "<<MongoDB>>\n:massageshops" as MassageShopsDatabase
 client->server ++:req.delete('/massageShops/:id')
 server->routerMassageShops ++:app.use('/massageShops', massageShops)
 routerMassageShops->middlewareAuth ++:protect()
-middlewareAuth -> middlewareAuth : autorize('admin')
+routerMassageShops -> middlewareAuth : autorize('admin')
 middlewareAuth->controllersMassageShops ++:deleteMassageShop()
-controllersMassageShops->modelMassageShop ++:findById(req.params.id) -> deleteOne()
+controllersMassageShops->modelMassageShop ++:findById(req.params.id) 
 modelMassageShop ->MassageShopsDatabase ++: MassageShopSchema
 MassageShopsDatabase --> modelMassageShop --: massageShops
 controllersMassageShops <-- modelMassageShop --:massageShops
+controllersMassageShops --> modelMassageShop ++:deleteOne()
+modelMassageShop ->MassageShopsDatabase ++: MassageShopSchema
 controllersMassageShops->client --:response
 
 @enduml

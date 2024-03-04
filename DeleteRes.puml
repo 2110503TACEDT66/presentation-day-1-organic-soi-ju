@@ -16,10 +16,12 @@ client->server ++:req.delete('/reservations/:id')
 server->routerReservations ++:app.use('/reservations', reservations)
 routerReservations -> middleware ++: protect()
 middleware -> controllersReservations ++:deleteReservation()
-controllersReservations -> modelReservation ++: findById(req.params.id) -> deleteOne()
+controllersReservations -> modelReservation ++: findById(req.params.id)
 modelReservation ->ReservationsDatabase ++: ReservationSchema
 ReservationsDatabase --> modelReservation --: reservations
 controllersReservations <-- modelReservation --:reservations
+controllersReservations --> modelReservation ++: deleteOne()
+modelReservation -> ReservationsDatabase ++: ReservationSchema
 controllersReservations->client --:response
 
 @enduml

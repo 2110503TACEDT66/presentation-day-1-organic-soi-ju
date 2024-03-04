@@ -15,7 +15,7 @@ database "<<MongoDB>>\n:massageshops" as MassageShopsDatabase
 client->server ++:req.put('/massageShops/:id')
 server->routerMassageShops ++:app.use('/massageShops', massageShops)
 routerMassageShops->middlewareAuth ++:protect()
-middlewareAuth->middlewareAuth :authorize('admin')
+routerMassageShops->middlewareAuth :authorize('admin')
 middlewareAuth -> controllersMassageShops ++:updateMassageShop()
 controllersMassageShops->modelMassageShop ++:findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true})
 modelMassageShop ->MassageShopsDatabase ++: MassageShopSchema

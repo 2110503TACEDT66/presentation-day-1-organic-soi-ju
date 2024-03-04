@@ -81,7 +81,7 @@ package "Soi Ju"{
 VacQService ..> ResourceMassageShops:"/api/v1/massageShops\n<<Path>>"
 ResourceMassageShops ..> ResourceMassageShop: "/{MassageShopId}\n<<Path>>"
 ResourceMassageShop ..> RepresentationMassageShop: "<<use>>"
-ResourceMassageShop ..> ResourceReservation:"/reservations\n<<Path>>"
+ResourceMassageShop ..> ResourceReservations:"/reservations\n<<Path>>"
 
 VacQService ..> ResourceReservations:"/api/v1/reservations\n<<Path>>"
 ResourceReservations ..> ResourceReservation: "/{ReservationId}\n<<Path>>"

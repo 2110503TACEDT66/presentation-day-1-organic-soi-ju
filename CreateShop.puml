@@ -16,7 +16,7 @@ database "<<MongoDB>>\n:massageshops" as MassageShopsDatabase
 client->server ++:req.post('/massageShops')
 server->routerMassageShops ++:app.use('/massageShops', massageShops)
 routerMassageShops->middlewareAuth ++:protect()
-middlewareAuth -> middlewareAuth :authorize('admin')
+routerMassageShops -> middlewareAuth :authorize('admin')
 middlewareAuth -> controllersMassageShops ++: createMassageShop()
 controllersMassageShops->modelMassageShop ++:create(req.body)
 modelMassageShop ->MassageShopsDatabase ++: MassageShopSchema
