@@ -44,6 +44,10 @@ const MassageShopSchema = new mongoose.Schema({
     close_time: {
         type: String,
         required: [true, 'Please add close-time']
+    },
+
+    picture: {
+        type: String
     }
 }, 
 {
