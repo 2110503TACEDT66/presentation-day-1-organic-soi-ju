@@ -16,12 +16,18 @@ exports.getReservations = async (req, res, next) => {
             query = Reservation.find({massage_shop: req.params.massageshopId}).populate({
                 path: 'massage_shop',
                 select: 'name province tel'
+            }).populate({
+                path: 'user',
+                select: 'name email tel'
             });
         }
         else {
             query = Reservation.find().populate({
                 path: 'massage_shop',
                 select: 'name province tel'
+            }).populate({
+                path: 'user',
+                select: 'name email tel'
             });
         }
     }
