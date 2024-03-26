@@ -54,7 +54,7 @@ exports.getReservation = async (req, res, next) => {
         if(!reservation) {
             return res.status(404).json({success: false, message: `Reservation with id: ${req.params.id} is not found`});
         }
-        if(reservation.user.toString() != req.user.id && req.user.role != 'admin'){
+        if(reservation.user.toString() != req.user.id){
             return res.status(401).json({success: false, message: `User with id: ${req.user.id} is not authorized to view this reservation`});
         }
 
